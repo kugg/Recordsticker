@@ -1,5 +1,5 @@
 # Recordsticker
-Recordstore label printer, Currently supporting MAC OS X and Linux.
+Recordstore label printer, currently supporting MAC OS X.
 ## Status
 This is work in progress, do not rely on this app until first release.
 ## Installation

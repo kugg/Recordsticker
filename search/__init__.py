@@ -23,6 +23,13 @@ class Conf(configparser.ConfigParser):
         self._write()
         self.read(self.filename)
 
+    def enabled(self, section):
+        """Return all enabled config keys for a given section"""
+        enabled = []
+        for item in self[section].keys():
+            if self[section].getboolean(item):
+                enabled.append(item)
+        return enabled
 
 def query(catalog_number):
     """
@@ -46,7 +53,8 @@ def result_filter(search_result):
         for key in filter_true:
             shown_result[key] = search_result[key]
     except KeyError as e:
-        print("The result from the query did not have field requested in filter config. {}".format(e))
+        pass
+        # print("The result from the query did not have field requested in filter config. {}".format(e))
     return shown_result
 
 
@@ -73,8 +81,8 @@ def test_config():
     """Test to see if config can read and write."""
     filter_conf = Conf("search/filter.ini")
     item = "Test"
-    filter_conf[item] = {} # Create section
-    filter_conf[item][item] = item # Create option
+    filter_conf[item] = {}  # Create section
+    filter_conf[item][item] = item  # Create option
     filter_conf.save()
     if filter_conf[item][item] == item:
         filter_conf.remove_option(item, item)
